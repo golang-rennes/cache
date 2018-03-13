@@ -25,6 +25,7 @@ func init() {
 		&cacheTest{name: "Memory", T: NewMemory()},
 		&cacheTest{name: "SyncMemory", T: NewSyncMemory()},
 		&cacheTest{name: "File", T: NewFile(tempDir)},
+		&cacheTest{name: "Expirable", T: NewExpirable()},
 	}
 }
 

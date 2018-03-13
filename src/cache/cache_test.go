@@ -15,6 +15,7 @@ type cacheTest struct {
 var caches = []*cacheTest{
 	//	&cacheTest{name: "None", T: NewNone()},
 	&cacheTest{name: "Memory", T: NewMemory()},
+	&cacheTest{name: "SyncMemory", T: NewSyncMemory()},
 }
 
 func TestCacheAddGet(t *testing.T) {

@@ -12,4 +12,4 @@ type T interface {
 const cacheDir = "/tmp/cache"
 
 // New initializes a default cache
-var New = NewExpirable
+var New = NewBounded

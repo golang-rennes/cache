@@ -10,4 +10,4 @@ type T interface {
 }
 
 // New initializes a default cache
-var New = NewNone
+var New = NewMemory

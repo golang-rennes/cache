@@ -1,6 +1,9 @@
 package cache
 
-import "testing"
+import (
+	"io/ioutil"
+	"testing"
+)
 
 var (
 	key     = "test"
@@ -12,10 +15,17 @@ type cacheTest struct {
 	name string
 }
 
-var caches = []*cacheTest{
-	//	&cacheTest{name: "None", T: NewNone()},
-	&cacheTest{name: "Memory", T: NewMemory()},
-	&cacheTest{name: "SyncMemory", T: NewSyncMemory()},
+var caches []*cacheTest
+
+func init() {
+	tempDir, _ := ioutil.TempDir("", "")
+
+	caches = []*cacheTest{
+		//	&cacheTest{name: "None", T: NewNone()},
+		&cacheTest{name: "Memory", T: NewMemory()},
+		&cacheTest{name: "SyncMemory", T: NewSyncMemory()},
+		&cacheTest{name: "File", T: NewFile(tempDir)},
+	}
 }
 
 func TestCacheAddGet(t *testing.T) {

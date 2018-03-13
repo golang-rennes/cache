@@ -9,5 +9,9 @@ type T interface {
 	Invalidate(key string)
 }
 
+const cacheDir = "/tmp/cache"
+
 // New initializes a default cache
-var New = NewMemory
+func New() T {
+	return NewFile(cacheDir)
+}

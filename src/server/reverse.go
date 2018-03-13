@@ -3,6 +3,7 @@ package main
 import (
 	"cache"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
@@ -14,6 +15,15 @@ type reverse struct {
 // ServeHTTP handles HTTP requests, and implements the http.Handler interface
 func (r reverse) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	path := strings.Trim(req.RequestURI, " /")
+	if fc, ok := r.cache.(cache.Filenamer); ok {
+		filename := fc.GetFilename(path)
+		_, err := os.Lstat(filename)
+		if err == nil {
+			http.ServeFile(w, req, filename)
+			return
+		}
+	}
+
 	resp, ok := r.cache.Get(path)
 	if !ok {
 		resp = computeResponse(path)
